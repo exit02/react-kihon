@@ -1,4 +1,5 @@
 import React from "react";
+import ColorfulMessage from "./components/ColorfulMessage";
 
 // ファイル名の拡張子は.js または、.jsxとする。
 // .jsxはReact専用の拡張子となる。
@@ -12,10 +13,6 @@ const App = () => {
   // <button>内のイベント名はキャメルケースの書き方をする。onClick 途中に大文字が入る。
   const onClickButton = () => alert();
   // オブジェクトを定義できる
-  const contentStyle = {
-    color: "blue",
-    fontSize: "18px"
-  };
   return (
     // returnするhtmlは１つのタグで返却しなくてはいけない。
     // また、タグを記載する場合divタグを使用すると返却先のhtmlに反映されてしまうため、
@@ -26,7 +23,8 @@ const App = () => {
     // ２つ目の{}はオブジェクトを指定する宣言となる。
     <>
       <h1 style={{ color: "red" }}>こんにちは！</h1>
-      <p style={contentStyle}>おげんきですか？</p>
+      <ColorfulMessage color="blue">お元気ですか？</ColorfulMessage>
+      <ColorfulMessage color="pink">元気です！</ColorfulMessage>
       <button onClick={onClickButton}>ボタン</button>
     </>
   );
