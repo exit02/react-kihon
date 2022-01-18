@@ -9,15 +9,30 @@ import ColorfulMessage from "./components/ColorfulMessage";
 // 関数を使って画面の要素のコンポーネントを表現する。
 // 関数の中にhtmlを記載する方法をJSX技法と言うらしい。。。
 const App = () => {
+  console.log("最初！！");
+  // useStateの指定（状態変化の取得、設定？が行える）
+  // 配列で変数と関数名を取得する。変数名、関数名は自分で決められる。
+  // useStateの引数は初期値を指定する。
+  const [num, setNum] = useState(0);
+  const [faceShowFlag, setFaceShowFlag] = useState(false);
+
   // ボタンイベントの関数
   // <button>内のイベント名はキャメルケースの書き方をする。onClick 途中に大文字が入る。
   const onClickCountUp = () => {
     setNum(num + 1);
   };
-  // useStateの指定（状態変化の取得、設定？が行える）
-  // 配列で変数と関数名を取得する。変数名、関数名は自分で決められる。
-  // useStateの引数は初期値を指定する。
-  const [num, setNum] = useState(0);
+  const onClickSwitchShowFlag = () => {
+    setFaceShowFlag(!faceShowFlag);
+  };
+
+  if (num > 0) {
+    if (num % 3 === 0) {
+      faceShowFlag || setFaceShowFlag(true);
+    } else {
+      faceShowFlag && setFaceShowFlag(false);
+    }
+  }
+
   return (
     // returnするhtmlは１つのタグで返却しなくてはいけない。<>
     // また、タグを記載する場合divタグを使用すると返却先のhtmlに反映されてしまうため、
@@ -31,7 +46,10 @@ const App = () => {
       <ColorfulMessage color="blue">お元気ですか？</ColorfulMessage>
       <ColorfulMessage color="pink">元気です！</ColorfulMessage>
       <button onClick={onClickCountUp}>カウントアップ！</button>
+      <br />
+      <button onClick={onClickSwitchShowFlag}>on/off</button>
       <p>{num}</p>
+      {faceShowFlag && <p>!(^^)!</p>}
     </>
   );
 };
