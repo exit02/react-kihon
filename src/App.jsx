@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+// useEffectの記述でeslintから警告が出ている場合、問題がなければ
+// 以下のコメントの記載で警告をoffすることができる。
+/* eslint react-hooks/exhaustive-deps: off */
+import React, { useEffect, useState } from "react";
 import ColorfulMessage from "./components/ColorfulMessage";
 
 // ファイル名の拡張子は.js または、.jsxとする。
@@ -25,13 +28,22 @@ const App = () => {
     setFaceShowFlag(!faceShowFlag);
   };
 
-  if (num > 0) {
-    if (num % 3 === 0) {
-      faceShowFlag || setFaceShowFlag(true);
-    } else {
-      faceShowFlag && setFaceShowFlag(false);
+  // numが更新されると再レンダリングが走り、顔文字が表示されない
+  // 顔文字を表示させるにはnumの関心の分離を行いuseEfectを使用する。
+  //
+  // useEfectの第2引数に関数を指定すると最初のみが実行される。
+  // （最初の１回のみの初期化処理などを行う場合に用いられる。）
+  // また、第2引数の配列に変数を指定するとその変数が変化した時に処理を走らせる
+  // ことができる。(num)
+  useEffect(() => {
+    if (num > 0) {
+      if (num % 3 === 0) {
+        faceShowFlag || setFaceShowFlag(true);
+      } else {
+        faceShowFlag && setFaceShowFlag(false);
+      }
     }
-  }
+  }, [num]);
 
   return (
     // returnするhtmlは１つのタグで返却しなくてはいけない。<>
